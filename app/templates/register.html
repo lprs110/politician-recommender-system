@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Cadastrar</h2>
+<form action="" method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        <label>{{ form.username.label }}</label>
+        {{ form.username(class="form-control") }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.password.label }}</label>
+        {{ form.password(class="form-control") }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Cadastrar</button>
+
+</form>
+{% endblock %}
