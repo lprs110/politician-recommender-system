@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <h1>EmQuemVotar</h1>
-        <h3>Este é apenas um protótipo!</h3>
-        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg active" role="button">Quero me cadastrar!</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <p style="text-align: center;">Este é apenas um protótipo!</p>
+            <img src="{{ url_for('static', filename='logo.png')}}" width="100%"/>
+            <h3>Este é apenas um protótipo!</h3>
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg active" role="button">Quero me cadastrar!</a>
+        </div>
     </div>
 </div>
 {% endblock %}
