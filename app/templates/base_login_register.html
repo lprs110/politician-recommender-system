@@ -1,0 +1,46 @@
+<style>
+    .text-center{
+        text-align: center !important;
+    }
+    .form{
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+</style>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>EmQuemVotar - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='f_verde.png') }}"/>
+    </head>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning">
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ messages }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <body class="text-center" style="background-color: #f9f9f9">
+
+        <form class="form" action="" method="POST">
+            {{ form.csrf_token }}
+            <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/></a>
+            <h4 style="padding: 5px; margin-bottom: 20px;">Por favor insira seus dados</h4>
+            {% block content %}
+
+            {% endblock %}
+        </form>
+    </body>
+
+
+</html>
