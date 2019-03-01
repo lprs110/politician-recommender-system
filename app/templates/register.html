@@ -1,24 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_login_register.html' %}
+{% block title %}Criar Conta{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 style="text-align: center;">Cadastrar</h2>
-            <form action="" method="POST">
-                {{ form.csrf_token }}
-                <div class="form-group">
-                    <label>{{ form.username.label }}</label>
-                    {{ form.username(class="form-control") }}
-                </div>
-                <div class="form-group">
-                    <label>{{ form.password.label }}</label>
-                    {{ form.password(class="form-control") }}
-                </div>
-
-                <button type="submit" class="btn btn-success">Cadastrar</button>
-            </form>
+<div class="card" style="width: 25rem; margin-left: -40px;">
+    <div class="card-header">
+        <h2>Cadastrar</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+           <strong><label style="float:left;">{{ form.username.label }}</label></strong>
+            {{ form.username(class="form-control") }}
         </div>
+        <div class="form-group">
+            <strong><label style="float:left;">{{ form.password.label }}</label></strong>
+            {{ form.password(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-success btn-block">Cadastrar</button>
+    </div>
+    <div class="card-footer">
+        <p style="margin-top: 5px;">Já possui uma conta? <a href="{{ url_for('login') }}">Faça seu login!</a></p>
     </div>
 </div>
 {% endblock %}
