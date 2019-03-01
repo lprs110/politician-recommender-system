@@ -1,2 +1,2 @@
 # politician-recommender-system
-Politician Recommender System in Python and Javascript
+Prototype for a politician recommender system in Flask
