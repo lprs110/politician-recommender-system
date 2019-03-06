@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 51b7b7c7dd35
+Revision ID: 80d382a12eed
 Revises: 
-Create Date: 2019-02-22 16:12:59.598232
+Create Date: 2019-03-06 18:35:39.667375
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '51b7b7c7dd35'
+revision = '80d382a12eed'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,25 +36,25 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
     op.create_table('candidate_areas',
-    sa.Column('rate', sa.Float(), nullable=False),
     sa.Column('candidate_id', sa.Integer(), nullable=False),
     sa.Column('area_id', sa.Integer(), nullable=False),
+    sa.Column('tfidf', sa.Float(), nullable=False),
     sa.ForeignKeyConstraint(['area_id'], ['areas.id'], ),
     sa.ForeignKeyConstraint(['candidate_id'], ['candidates.id'], ),
     sa.PrimaryKeyConstraint('candidate_id', 'area_id')
     )
     op.create_table('user_areas',
-    sa.Column('rate', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('area_id', sa.Integer(), nullable=False),
+    sa.Column('rate', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['area_id'], ['areas.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'area_id')
     )
     op.create_table('user_candidates',
-    sa.Column('rate', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('candidate_id', sa.Integer(), nullable=False),
+    sa.Column('rate', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['candidate_id'], ['candidates.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'candidate_id')
