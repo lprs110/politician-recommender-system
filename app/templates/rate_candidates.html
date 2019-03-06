@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .text-center{
+        text-align: center !important;
+    }
+    .center-image{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    label {
+        font-size: 30px;
+    }
+</style>
+
+<div class="container">
+    <br />
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
+        <h4 style="padding: 5px; margin-bottom: 20px;">Avalie os candidatos conforme sua afinidade com cada um.</h4>
+    </div>
+
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+
+        <div class="card" style="width: 100%;">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='alckmin.png') }}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.alckmin.label }}</strong></label>
+                        {{ form.alckmin(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='amoedo.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.amoedo.label }}</strong></label>
+                        {{ form.amoedo(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='bolsonaro.png')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.bolsonaro.label }}</strong></label>
+                        {{ form.bolsonaro(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='boulos.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.boulos.label }}</strong></label>
+                        {{ form.boulos(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='ciro.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.ciro.label }}</strong></label>
+                        {{ form.ciro(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='daciolo.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.daciolo.label }}</strong></label>
+                        {{ form.daciolo(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='haddad.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.haddad.label }}</strong></label>
+                        {{ form.haddad(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename='marina.jpg')}}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ form.marina.label }}</strong></label>
+                        {{ form.marina(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <hr />
+                <span style="float:right;"><button type="submit" class="btn btn-lg btn-success">Avaliar</button></span>
+                <br />
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

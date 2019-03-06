@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .text-center{
+        text-align: center !important;
+    }
+    .center-image{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="container">
+    <br />
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
+        <h4 style="padding: 5px; margin-bottom: 20px;">Avalie os temas que você mais tem interesse nas propostas de um candidato.</h4>
+    </div>
+
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+
+        <div class="card" style="width: 100%;">
+
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='cultura.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.cultura.label }}</label>
+                        {{ form.cultura(type="range", class="custom-range", min="1", max="5", value="1") }}
+                        <!--<input type="range" class="custom-range" min="1" max="5" value="1" id="rangeCultura">-->
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='economia.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.economia.label }}</label>
+                        {{ form.economia(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='educacao.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.educacao.label }}</label>
+                        {{ form.educacao(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='meio_ambiente.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.meio_ambiente.label }}</label>
+                        {{ form.meio_ambiente(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='saude.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.saude.label }}</label>
+                        {{ form.saude(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='seguranca.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.seguranca.label }}</label>
+                        {{ form.seguranca(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='ciencia.png') }}" width="150" height="150" class="center-image"/>
+                        <label>{{ form.tecnologia.label }}</label>
+                        {{ form.tecnologia(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </div>
+                </div>
+
+                <span style="float:right !important;"><button type="submit" class="btn btn-lg btn-success">Avaliar</button></span>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
