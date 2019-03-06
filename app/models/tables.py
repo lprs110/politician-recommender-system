@@ -1,22 +1,5 @@
 from app import db
 
-user_areas = db.Table('user_areas',
-                      db.Column('rate', db.Integer, nullable=False),
-                      db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-                      db.Column('area_id', db.Integer, db.ForeignKey('areas.id'), primary_key=True))
-
-user_candidates = db.Table('user_candidates',
-                           db.Column('rate', db.Integer, nullable=False),
-                           db.Column('user_id', db.Integer, db.ForeignKey(
-                               'users.id'), primary_key=True),
-                           db.Column('candidate_id', db.Integer, db.ForeignKey('candidates.id'), primary_key=True))
-
-candidate_areas = db.Table('candidate_areas',
-                           db.Column('rate', db.Float, nullable=False),
-                           db.Column('candidate_id', db.Integer, db.ForeignKey(
-                               'candidates.id'), primary_key=True),
-                           db.Column('area_id', db.Integer, db.ForeignKey('areas.id'), primary_key=True))
-
 
 class User(db.Model):
     __tablename__ = "users"
@@ -25,11 +8,9 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    areas = db.relationship('Area', secondary=user_areas, lazy='subquery',
-                            backref=db.backref('users', lazy=True))
+    areas_rating = db.relationship("Area", secondary="user_areas")
 
-    candidates = db.relationship('Candidate', secondary=user_candidates, lazy='subquery',
-                                 backref=db.backref('users', lazy=True))
+    candidates_rating = db.relationship("Candidate", secondary="user_candidates")
 
     @property
     def is_authenticated(self):
@@ -60,6 +41,10 @@ class Area(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     area_name = db.Column(db.String, nullable=False)
 
+    users_rating = db.relationship("User", secondary="user_areas")
+
+    candidates_tfidf = db.relationship("Candidate", secondary="candidate_areas")
+
     def __init__(self, area_name):
         self.area_name = area_name
 
@@ -73,11 +58,39 @@ class Candidate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     candname = db.Column(db.String, nullable=False)
 
-    areas = db.relationship('Area', secondary=candidate_areas, lazy='subquery',
-                            backref=db.backref('candidates', lazy=True))
+    users_rating = db.relationship("User", secondary="user_candidates")
+
+    areas_tfidf = db.relationship("Area", secondary="candidate_areas")
 
     def __init__(self, candname):
         self.candname = candname
 
     def __repr__(self):
         return "Candidate <%r>" % self.candname
+
+
+class User_Areas(db.Model):
+    __tablename__ = "user_areas"
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    area_id = db.Column(db.Integer, db.ForeignKey('areas.id'), primary_key=True)
+    rate = db.Column(db.Integer, nullable=False)
+    user = db.relationship("User", backref=db.backref("areas_ratings"))
+    area = db.relationship("Area", backref=db.backref("users_area_ratings"))
+
+
+class User_Candidates(db.Model):
+    __tablename__ = "user_candidates"
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    candidate_id = db.Column(db.Integer, db.ForeignKey('candidates.id'), primary_key=True)
+    rate = db.Column(db.Integer, nullable=False)
+    user = db.relationship("User", backref=db.backref("candidates_ratings"))
+    candidate = db.relationship("Candidate", backref=db.backref("users_cand_ratings"))
+
+
+class Candidate_Areas(db.Model):
+    __tablename__ = "candidate_areas"
+    candidate_id = db.Column(db.Integer, db.ForeignKey('candidates.id'), primary_key=True)
+    area_id = db.Column(db.Integer, db.ForeignKey('areas.id'), primary_key=True)
+    tfidf = db.Column(db.Float, nullable=False)
+    candidate = db.relationship("Candidate", backref=db.backref("areas_cand_tfidf"))
+    area = db.relationship("Area", backref=db.backref("cand_areas_tfidf"))
