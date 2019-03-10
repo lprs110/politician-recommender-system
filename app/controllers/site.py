@@ -20,10 +20,13 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+
         if user and user.password == form.password.data:
             login_user(user)
+
             return redirect(url_for('index'))
         else:
             flash("Login inválido", 'error')
@@ -36,9 +39,12 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        new_user = User(form.username.data, form.password.data)
+        new_user = User(form.username.data, form.full_name.data, form.password.data)
         db.session.add(new_user)
         db.session.commit()
+
+        login_user(new_user)
+
         flash("Cadastro feito com sucesso, complete seu perfil a seguir.", 'success')
         return redirect(url_for('register_areas'))
 
@@ -74,9 +80,12 @@ def register_areas():
 
         db.session.commit()
 
-        flash("Cadastrado com sucesso", 'success')
+        flash("Temas avaliados com sucesso.", 'success')
 
-        return redirect(url_for('index'))
+        if not user.candidates_rating:
+            return redirect(url_for('rate_candidates'))
+        else:
+            return redirect(url_for('profile'))
 
     return render_template('register_areas.html', form=form)
 
@@ -104,33 +113,13 @@ def rate_candidates():
 
         db.session.commit()
 
-        flash("Avaliação de candidatos feita com sucesso.", 'success')
+        flash("Avaliação de candidatos feita com sucesso. Obrigado por completar seu perfil.", 'success')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('profile'))
 
     return render_template('rate_candidates.html', form=form)
 
-'''
-@app.route("/create_area")
-def create_area():
-    areas = ["cultura", "economia", "educacao", "meio_ambiente", "saude", "seguranca", "tecnologia"]
 
-    for area in areas:
-        a = Area(area)
-        db.session.add(a)
-    db.session.commit()
-
-    return "Ok"
-
-
-@app.route("/create_candidate")
-def create_candidate():
-    candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo', 'boulos', 'haddad', 'marina']
-
-    for candidate in candidates:
-        c = Candidate(candidate)
-        db.session.add(c)
-    db.session.commit()
-
-    return "Okkkk"
-'''
+@app.route("/profile")
+def profile():
+    return render_template('profile.html')

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .text-center{
+        text-align: center !important;
+    }
+</style>
+
+<div class="container">
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
+        <h4 style="padding: 5px;">Bem Vindo, {{ current_user.full_name}} (<strong>{{ current_user.username }}</strong>)</h4>
+        <a class="btn btn-lg btn-info" href="#" role="button">Solicitar Recomendação</a>
+    </div>
+    <br />
+
+    <div class="card" style="width: 100%;">
+
+        <div class="card" style="width: 100%;">
+            <div class="card-header text-center">
+                <h3>Temas</h3>
+            </div>
+            <div class="card-body">
+                {% if not current_user.areas_ratings: %}
+                    <a class="btn btn-block btn-info" href="{{ url_for('register_areas') }}" role="button">Nenhum tema avaliado. Avalie agora!</a>
+                {% else %}
+                    <div class="row">
+                        {% for user_area in current_user.areas_ratings %}
+                            <div class="col-md-12 text-center">
+                                <strong><span style="display:block;">{{ user_area.area.label }}</span></strong>
+                                {{ user_area.rate }}
+                            </div>
+                        {% endfor %}
+                        <a class="btn btn-block btn-success" href="#" role="button">Clique aqui para alterar sua avaliação!</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="card" style="width: 100%;">
+            <div class="card-header text-center">
+                <h3>Candidatos</h3>
+            </div>
+            <div class="card-body">
+                {% if not current_user.candidates_rating %}
+                    <a class="btn btn-block btn-info" href="{{ url_for('rate_candidates') }}" role="button">Nenhum candidato avaliado. Avalie agora!</a>
+                {% else %}
+                    <div class="row">
+                        {% for user_cand in current_user.candidates_ratings %}
+                            <div class="col-md-12 text-center">
+                                <strong><span style="display:block;">{{ user_cand.candidate.label }}</span></strong>
+                                {{ user_cand.rate }}
+                            </div>
+                        {% endfor %}
+                        <a class="btn btn-block btn-success" href="#" role="button">Clique aqui para alterar sua avaliação!</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

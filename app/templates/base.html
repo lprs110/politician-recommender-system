@@ -35,8 +35,7 @@
         {{ fontawesome_html() }}
         <title>EmQuemVotar</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/config.css') }}" />
-        <link rel="icon" type="image/png" href="{{ url_for('static', filename='f_verde.png') }}"/>
+        <link rel="icon" href="../static/f_verde.png"/>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -55,14 +54,13 @@
 
 
                     {% if current_user.is_authenticated %}
-                    <a class="nav=item nav-link" href="{{ url_for('rate_candidates') }}">Avaliar Candidatos</a>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navDrop" role="button" data-toggle="dropdown">
                                 {{ current_user.username }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navDrop">
-                                <a class="dropdown-item" href="#">Perfil</a>
+                                <a class="dropdown-item" href="{{ url_for('profile') }}">Perfil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a>
                             </div>
