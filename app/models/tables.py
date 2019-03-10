@@ -5,7 +5,8 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
+    username = db.Column(db.String(10), unique=True, nullable=False)
+    full_name = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String, nullable=False)
 
     areas_rating = db.relationship("Area", secondary="user_areas")
@@ -27,8 +28,9 @@ class User(db.Model):
     def get_id(self):
         return str(self.id)
 
-    def __init__(self, username, password):
+    def __init__(self, username, fullname, password):
         self.username = username
+        self.full_name = fullname
         self.password = password
 
     def __repr__(self):
@@ -40,13 +42,15 @@ class Area(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     area_name = db.Column(db.String, nullable=False)
+    label = db.Column(db.String, nullable=False)
 
     users_rating = db.relationship("User", secondary="user_areas")
 
     candidates_tfidf = db.relationship("Candidate", secondary="candidate_areas")
 
-    def __init__(self, area_name):
+    def __init__(self, area_name, label):
         self.area_name = area_name
+        self.label = label
 
     def __repr__(self):
         return "Area <%r>" % self.area_name
@@ -57,13 +61,15 @@ class Candidate(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     candname = db.Column(db.String, nullable=False)
+    label = db.Column(db.String, nullable=False)
 
     users_rating = db.relationship("User", secondary="user_candidates")
 
     areas_tfidf = db.relationship("Area", secondary="candidate_areas")
 
-    def __init__(self, candname):
+    def __init__(self, candname, label):
         self.candname = candname
+        self.label = label
 
     def __repr__(self):
         return "Candidate <%r>" % self.candname
