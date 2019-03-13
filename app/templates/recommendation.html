@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>
+    .text-center{
+        text-align: center !important;
+    }
+    label {
+        font-size: 30px;
+    }
+</style>
+
+<div class="container">
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
+        <h4 style="padding: 5px;">Os seguintes candidatos foram recomendados para você</h4>
+    </div>
+
+    <div class="card" style="width: 100%;">
+
+        <div class="card-body">
+
+            {% for candidate in candidates %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{url_for('static', filename=candidate.candname + '.png') }}" width="400" height="400"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label><strong>{{ candidate.label }}</strong></label>
+                    </div>
+                </div>
+                <hr />
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

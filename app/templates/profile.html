@@ -12,7 +12,7 @@
     <div class="text-center">
         <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
         <h4 style="padding: 5px;">Bem Vindo, {{ current_user.full_name}} (<strong>{{ current_user.username }}</strong>)</h4>
-        <a class="btn btn-lg btn-info" href="#" role="button">Solicitar Recomendação</a>
+        <a class="btn btn-lg btn-info" href="{{ url_for('recommendation') }}" role="button">Solicitar Recomendação</a>
     </div>
     <br />
 

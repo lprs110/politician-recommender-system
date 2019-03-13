@@ -1,9 +1,11 @@
 from flask import render_template, flash, redirect, url_for, abort
 from flask_login import login_user, logout_user, current_user
 from app import app, db, login_manager
+from random import randint
 
 from app.models.tables import User, Area, Candidate, User_Areas, User_Candidates
 from app.models.forms import LoginForm, RegisterForm, RegisterAreasForm, RateCandidatesForm
+from app.scripts.recommenders.recommend import Hybrid_Recommendation
 
 
 @login_manager.user_loader
@@ -24,12 +26,15 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
 
-        if user and user.password == form.password.data:
-            login_user(user)
+        if user:
+            if user.password == form.password.data:
+                login_user(user)
 
-            return redirect(url_for('index'))
+                return redirect(url_for('profile'))
+            else:
+                flash("Senha inválida", 'error')
         else:
-            flash("Login inválido", 'error')
+            flash("Usuário inválido", 'error')
 
     return render_template('login.html', form=form)
 
@@ -117,9 +122,32 @@ def rate_candidates():
 
         return redirect(url_for('profile'))
 
+    else:
+
+        candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo', 'boulos', 'haddad', 'marina']
+
+        for i in range(4):
+            index = randint(0, len(candidates) - 1)
+            del form[candidates[index]]
+            candidates.pop(index)
+
     return render_template('rate_candidates.html', form=form)
 
 
 @app.route("/profile")
 def profile():
     return render_template('profile.html')
+
+
+@app.route("/recommendation")
+def recommendation():
+
+    list_of_candidates = []
+
+    rec = Hybrid_Recommendation(current_user.id)
+
+    for r in rec:
+        aux = Candidate.query.filter_by(id=r[0]).first()
+        list_of_candidates.append(aux)
+
+    return render_template('recommendation.html', candidates=list_of_candidates)
