@@ -6,6 +6,15 @@
     <div class="card-header">
         <h2>Cadastrar</h2>
     </div>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, errors in form.errors.items() %}
+                    <li>{{ form[field].label }}: {{ ', '.join(errors)}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <div class="card-body">
         <div class="form-group">
            <strong><label style="float:left;">{{ form.username.label }}</label></strong>
