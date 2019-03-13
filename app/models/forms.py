@@ -1,16 +1,16 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, IntegerField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, Length
 
 
 class LoginForm(FlaskForm):
-    username = StringField(label="Usuário", validators=[DataRequired()])
+    username = StringField(label="Usuário", validators=[DataRequired(), Length(max=10, message="Campo não pode ser maior que 10 caracteres")])
     password = PasswordField(label="Senha", validators=[DataRequired()])
 
 
 class RegisterForm(FlaskForm):
-    username = StringField(label="Usuário", validators=[DataRequired()])
-    full_name = StringField(label="Nome", validators=[DataRequired()])
+    username = StringField(label="Usuário", validators=[DataRequired(), Length(max=10, message="Campo não pode ser maior que 10 caracteres")])
+    full_name = StringField(label="Nome", validators=[DataRequired(), Length(max=120, message="Campo não pode ser maior que 120 caracteres")])
     password = PasswordField(label="Senha", validators=[DataRequired()])
 
 
