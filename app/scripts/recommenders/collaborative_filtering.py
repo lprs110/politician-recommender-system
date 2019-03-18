@@ -1,7 +1,9 @@
 import sqlite3
 from math import *
+from collections import Counter
 
 con = sqlite3.connect('storage.db', check_same_thread=False)
+# con = sqlite3.connect('../../../storage.db')
 cur = con.cursor()
 
 base_query = "select * from user_candidates where user_id = (?)"
@@ -42,22 +44,50 @@ def neighbors(user):
     return sorted(distances, key=lambda userTuple: userTuple[0])
 
 
-def col_recommend(user):
+def findMinNeighbors(neighborhood):
 
+    min_neighbors = []
+
+    for neighbor in neighborhood:
+        if neighbor[0] == 0.0:
+            min_neighbors.append(neighbor[1])
+        else:
+            break
+
+    if not min_neighbors:
+        return [neighborhood[0][1]]
+    else:
+        return min_neighbors
+
+
+def col_recommend(user):
     user = cur.execute(base_query, (user[0][0],)).fetchall()
 
-    list_of_recommendations = []
+    nearest_neighbors = findMinNeighbors(neighbors(user))
 
-    nearest_neighbor = neighbors(user)[0][1]
+    candidate_counter, score_counter = [], {}
 
-    user_neighbor = cur.execute(base_query, (nearest_neighbor,)).fetchall()
+    for neighbor_id in nearest_neighbors:
 
-    for _, cand_id, rate in user_neighbor:
+        user_neighbor = cur.execute(base_query, (neighbor_id,)).fetchall()
 
-        index = searchCandidate(user, cand_id)
+        for _, cand_id, rate in user_neighbor:
 
-        if index == -1:
+            index = searchCandidate(user, cand_id)
 
-            list_of_recommendations.append((cand_id, rate))
+            if index == -1:
 
-    return list_of_recommendations
+                candidate_counter.append(cand_id)
+
+                if score_counter.get(cand_id) is None:
+                    score_counter[cand_id] = rate
+                else:
+                    score_counter[cand_id] += rate
+
+    candidate_counter = Counter(candidate_counter)
+    recommendations = []
+
+    for cand_id in candidate_counter:
+        recommendations.append((cand_id, score_counter[cand_id] / candidate_counter[cand_id]))
+
+    return sorted(recommendations, key=lambda candidateTuple: candidateTuple[1], reverse=True)
