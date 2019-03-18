@@ -103,13 +103,13 @@ def rate_candidates():
 
     form = RateCandidatesForm()
 
-    if form.validate_on_submit():
+    if form.is_submitted():
 
         user = current_user
 
         for field, value in form.data.items():
 
-            if field != "csrf_token":
+            if field != "csrf_token" and value is not None:
                 candidate = Candidate.query.filter_by(candname=field).first()
 
                 user_cand_relationship = User_Candidates(user=user, candidate=candidate, rate=value)
@@ -126,7 +126,7 @@ def rate_candidates():
 
         candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo', 'boulos', 'haddad', 'marina']
 
-        for i in range(4):
+        for i in range(5):
             index = randint(0, len(candidates) - 1)
             del form[candidates[index]]
             candidates.pop(index)
