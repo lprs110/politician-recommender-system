@@ -1,7 +1,88 @@
 {% extends 'base_login_register.html' %}
 {% block title %}Criar Conta{% endblock %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/register.css') }}">
+{% endblock %}
+
 {% block content %}
+<div class="container">
+    <form class="form d-flex flex-column width mb-3 needs-validation" novalidate action="" method="POST">
+        {{ form.csrf_token }}            
+        <div class="p-2">
+            <img class="mb-4" src="{{ url_for('static', filename='images/logo_verde-2.png')}}" width="120" height="120" />
+            <p class="title">Crie sua conta abaixo</p>
+            <hr/>
+        </div>
+        
+        <div class="p-2">
+            <input
+                id="username"
+                type="text"
+                class="form-control {{ 'is-invalid' if 'username' in dict(form.errors.items()) }}"
+                name="username"
+                placeholder="Usuário"
+            />
+            {% if form.errors %}
+                <div class="invalid-feedback">
+                    {% for field, errors in form.errors.items() %}
+                        {% if field == 'username' %}
+                            {{ ', '.join(errors)}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+        </div>
+        <div class="p-2">
+            <input 
+                id="full_name"
+                type="text"
+                class="form-control {{ 'is-invalid' if 'full_name' in dict(form.errors.items()) }}"
+                name="full_name"
+                placeholder="Nome Completo"
+            />
+            {% if form.errors %}
+                <div class="invalid-feedback">
+                    {% for field, errors in form.errors.items() %}
+                        {% if field == 'full_name' %}
+                            {{ ', '.join(errors)}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="p-2">
+            <input
+                id="password"
+                type="password"
+                class="form-control {{ 'is-invalid' if 'password' in dict(form.errors.items()) }}"
+                name="password"
+                placeholder="Senha"
+            />
+            {% if form.errors %}
+                <div class="invalid-feedback">
+                    {% for field, errors in form.errors.items() %}
+                        {% if field == 'password' %}
+                            {{ ', '.join(errors)}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="p-2">
+            <button type="submit" class="btn btn-block btn-success register">
+                CRIAR CONTA
+            </button>
+        </div>
+        <div class="p-2">
+            <hr />
+            <p class="footer">Já tem uma conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}
+<!--
 <div class="card" style="width: 25rem; margin-left: -40px;">
     <div class="card-header">
         <h2>Cadastrar</h2>
@@ -35,4 +116,4 @@
         <p style="margin-top: 5px;">Já possui uma conta? <a href="{{ url_for('login') }}">Faça seu login!</a></p>
     </div>
 </div>
-{% endblock %}
+-->

@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css')}}">
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <br />
-            <h4 style="text-align: center;">Este é apenas um protótipo!</h4>
-            <img src="{{ url_for('static', filename='logo.png')}}" width="100%"/>
+<div class="fadeIn">
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-8 intro-text">
+                    <h1>Vote consciente</h1>
+                    <h4>Conheça seus candidatos e obtenha recomendações.</h4>
+                    <a routerLink="/signup"
+                        ><button class="btn btn-success">CRIE SUA CONTA AGORA</button></a
+                    >
+                </div>
+        </div>
         </div>
     </div>
-    <br />
-    {% if not current_user.is_authenticated %}
-        <div style="display: table; margin-right: auto; margin-left: auto;">
-            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg active" role="button">Quero me cadastrar!</a>
-        </div>
-    {% endif %}
 </div>
 {% endblock %}
