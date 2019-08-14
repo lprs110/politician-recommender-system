@@ -1,0 +1,76 @@
+li, a, button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+  }
+  
+  ul {
+    margin-bottom: 0px;
+  }
+  
+  a {
+    cursor: pointer;
+  }
+
+  a:hover{
+    text-decoration: none;
+  }
+  
+  header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 10%;
+    background-color: #24252A;
+  }
+  
+  .logo {
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: auto;
+    text-decoration: none;
+    color: #edf0f1;
+  }
+
+  .logo:hover{
+    color: #edf0f1;
+  }
+  
+  .logo-mid {
+    color: #00cc00;
+  }
+  
+  .logo-end {
+    font-size: 10px;
+  }
+  
+  .nav-links {
+    list-style: none;
+  }
+  
+  .nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+  }
+  
+  .nav-links li a:hover {
+    color: #00cc00;
+  }
+  
+  .contact {
+    margin-left: 20px;
+    padding: 9px 25px;
+    background-color: rgba(0, 204, 0, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3 ease 0s;
+  }
+  
+  .contact:hover {
+    background-color: rgba(0, 204, 0, 0.8);
+  }
