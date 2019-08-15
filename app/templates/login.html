@@ -8,18 +8,48 @@
 {% block content %}
 
 <div class="container">
-    <form class="d-flex flex-column width mb-3 needs-validation"novalidate>
+    <form class="d-flex flex-column width mb-3 needs-validation" novalidate action="" method="POST">
         <div class="p-2">
             <img class="mb-4" src="{{ url_for('static', filename='images/logo_verde-2.png')}}" width="120" height="120" />
             <p class="title">Faça login com seu usuário</p>
             <hr/>
         </div>
-
+        
         <div class="p-2">
-            {{ form.username(class="form-control", placeholder="Usuário") }}
+            <input
+                id="username"
+                type="text"
+                class="form-control {{ 'is-invalid' if 'username' in dict(form.errors.items()) }}"
+                name="username"
+                placeholder="Usuário"
+            />
+            {% if form.errors %}
+                <div class="invalid-feedback">
+                    {% for field, errors in form.errors.items() %}
+                        {% if field == 'username' %}
+                            {{ ', '.join(errors)}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <div class="p-2">
-            {{ form.password(class="form-control", placeholder="Senha") }}
+            <input
+                id="password"
+                type="password"
+                class="form-control {{ 'is-invalid' if 'password' in dict(form.errors.items()) }}"
+                name="password"
+                placeholder="Senha"
+            />
+            {% if form.errors %}
+                <div class="invalid-feedback">
+                    {% for field, errors in form.errors.items() %}
+                        {% if field == 'password' %}
+                            {{ ', '.join(errors)}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <div class="p-2">
             <button type="submit" class="btn btn-block btn-success login">

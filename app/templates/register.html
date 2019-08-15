@@ -19,7 +19,7 @@
             <input
                 id="username"
                 type="text"
-                class="form-control {{ 'is-invalid' if 'username' in dict(form.errors.items()) }}"
+                class="form-control {{ 'is-invalid' if 'username' in dict(form.errors.items()) or user_exist }}"
                 name="username"
                 placeholder="Usuário"
             />
@@ -32,7 +32,11 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            
+            {% if user_exist %}
+                <div class="invalid-feedback">
+                    Este nome de usuário já existe
+                </div>
+            {% endif %}
         </div>
         <div class="p-2">
             <input 
