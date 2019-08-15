@@ -4,8 +4,22 @@ from wtforms.validators import DataRequired, NumberRange, Length, InputRequired
 
 
 class LoginForm(FlaskForm):
-    username = StringField(label="Usuário", validators=[DataRequired(), Length(max=10, message="Campo não pode ser maior que 10 caracteres")])
-    password = PasswordField(label="Senha", validators=[DataRequired()])
+    username = StringField(
+        label="Usuário",
+        validators=[
+            InputRequired(message="Por favor informe seu nome de usuário"),
+            Length(min=3, message="Usuário não pode ser menor que 3 caracteres"),
+            Length(max=10, message="Usuário não pode ser maior que 10 caracteres")
+        ]
+    )
+    password = PasswordField(
+        label="Senha",
+        validators=[
+            InputRequired(message="Por favor informe sua senha"),
+            Length(min=5, message="Senha não pode ser menor que 5 caracteres"),
+            Length(max=10, message="Senha não pode ser maior que 15 caracteres")
+        ]
+    )
 
 
 class RegisterForm(FlaskForm):
@@ -25,13 +39,12 @@ class RegisterForm(FlaskForm):
             Length(max=120, message="Nome Completo não pode ser maior que 120 caracteres")
         ]
     )
-
     password = PasswordField(
         label="Senha",
         validators=[
             InputRequired(message="Por favor informe sua senha"),
             Length(min=5, message="Senha não pode ser menor que 5 caracteres"),
-            Length(max=15, message="Senha não pode ser maior que 15 caracteres")
+            Length(max=10, message="Senha não pode ser maior que 15 caracteres")
         ]
     )
 
