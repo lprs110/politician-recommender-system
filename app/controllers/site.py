@@ -42,18 +42,25 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
+    user_exist = False
 
     if form.validate_on_submit():
-        new_user = User(form.username.data, form.full_name.data, form.password.data)
-        db.session.add(new_user)
-        db.session.commit()
+        user = User.query.filter_by(username=form.username.data).first()
 
-        login_user(new_user)
+        if user:
+            user_exist = True
+            return render_template('register.html', form=form, user_exist=user_exist)
+        else:
+            new_user = User(form.username.data, form.full_name.data, form.password.data)
+            db.session.add(new_user)
+            db.session.commit()
 
-        flash("Cadastro feito com sucesso, complete seu perfil a seguir.", 'success')
-        return redirect(url_for('register_areas'))
+            login_user(new_user)
 
-    return render_template('register.html', form=form)
+            flash("Cadastro feito com sucesso, complete seu perfil a seguir.", 'success')
+            return redirect(url_for('register_areas'))
+
+    return render_template('register.html', form=form, user_exist=user_exist)
 
 
 @app.route("/logout")
