@@ -9,6 +9,7 @@
 
 <div class="container">
     <form class="d-flex flex-column width mb-3 needs-validation" novalidate action="" method="POST">
+        {{ form.csrf_token }}
         <div class="p-2">
             <img class="mb-4" src="{{ url_for('static', filename='images/logo_verde-2.png')}}" width="120" height="120" />
             <p class="title">Faça login com seu usuário</p>
