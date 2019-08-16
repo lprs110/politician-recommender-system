@@ -57,7 +57,7 @@ def register():
 
             login_user(new_user)
 
-            flash("Cadastro feito com sucesso, complete seu perfil a seguir.", 'success')
+            #flash("Cadastro feito com sucesso, complete seu perfil a seguir.", 'success')
             return redirect(url_for('register_areas'))
 
     return render_template('register.html', form=form, user_exist=user_exist)
@@ -143,6 +143,9 @@ def rate_candidates():
 
 @app.route("/profile")
 def profile():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+        
     return render_template('profile.html')
 
 
