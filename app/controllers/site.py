@@ -1,10 +1,10 @@
-from flask import render_template, flash, redirect, url_for, abort
+from flask import render_template, flash, redirect, url_for, abort, jsonify
 from flask_login import login_user, logout_user, current_user
 from app import app, db, login_manager
 from random import randint
 
 from app.models.tables import User, Area, Candidate, User_Areas, User_Candidates
-from app.models.forms import LoginForm, RegisterForm, RegisterAreasForm, RateCandidatesForm
+from app.models.forms import LoginForm, RegisterForm, RegisterAreasForm, RateCandidatesForm, RateCandidateForm
 from app.scripts.recommenders.recommend import Hybrid_Recommendation
 
 
@@ -51,7 +51,8 @@ def register():
             user_exist = True
             return render_template('register.html', form=form, user_exist=user_exist)
         else:
-            new_user = User(form.username.data, form.full_name.data, form.password.data)
+            new_user = User(form.username.data,
+                            form.full_name.data, form.password.data)
             db.session.add(new_user)
             db.session.commit()
 
@@ -86,7 +87,8 @@ def register_areas():
             if field != "csrf_token":
                 area = Area.query.filter_by(area_name=field).first()
 
-                user_area_relationship = User_Areas(user=user, area=area, rate=value)
+                user_area_relationship = User_Areas(
+                    user=user, area=area, rate=value)
 
                 db.session.add(user_area_relationship)
 
@@ -102,18 +104,15 @@ def register_areas():
     return render_template('register_areas.html', form=form)
 
 
-@app.route("/rate_candidates", methods=["GET", "POST"])
-def rate_candidates():
-
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
-
+@app.route("/all_candidates", methods=["GET", "POST"])
+def all_candidates():
+    candidates = Candidate.query.all()
+    '''
     form = RateCandidatesForm()
 
     if form.is_submitted():
 
         user = current_user
-
         for field, value in form.data.items():
 
             if field != "csrf_token" and value is not None:
@@ -128,24 +127,49 @@ def rate_candidates():
         flash("Avaliação de candidatos feita com sucesso. Obrigado por completar seu perfil.", 'success')
 
         return redirect(url_for('profile'))
+    '''
 
-    else:
+    return render_template('all_candidates.html', candidates=candidates)
 
-        candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo', 'boulos', 'haddad', 'marina']
 
-        for i in range(5):
-            index = randint(0, len(candidates) - 1)
-            del form[candidates[index]]
-            candidates.pop(index)
+@app.route("/rate_candidate/<int:cand_id>", methods=['GET', 'POST'])
+def rate_candidate(cand_id):
+    candidate = Candidate.query.get(cand_id)
 
-    return render_template('rate_candidates.html', form=form)
+    form = RateCandidateForm()
+
+    if form.validate_on_submit():
+        user = current_user
+        candidate = Candidate.query.get(cand_id)
+
+        user_cand_relationship = User_Candidates.query.filter_by(
+            user_id=user.id,
+            candidate_id=cand_id
+        ).first()
+
+        if user_cand_relationship:
+            user_cand_relationship.rate = form.candscore.data
+        else:
+            user_cand_relationship = User_Candidates(
+                user=user,
+                candidate=candidate,
+                rate=form.candscore.data
+            )
+
+            db.session.add(user_cand_relationship)
+
+        db.session.commit()
+
+        return jsonify(status='ok')
+
+    return render_template('rate_candidate.html', form=form, candidate=candidate)
 
 
 @app.route("/profile")
 def profile():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-        
+
     return render_template('profile.html')
 
 

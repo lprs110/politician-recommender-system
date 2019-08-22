@@ -1,0 +1,70 @@
+<div class="modal fade" id="candidateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ candidate.label }} <span>({{ candidate.number }})</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="candidate-form" action="" method="POST">
+                <div class="modal-body">
+                        {{ form.csrf_token }}
+                        <ul>
+                            <li class="candidate-image">
+                                <img src="{{ url_for('static', filename='images/candidates/' + candidate.candname + '.png') }}" />
+                            </li>
+                            <li class="candidate-info" style="display: flex; flex-direction: column; justify-content: flex-start;">
+                                <p style="font-weight: 100; ">
+                                    Idade: {{ candidate.age }}
+                                </p>
+                                <p style="font-weight: 100;">
+                                    Partido: {{ candidate.political_party }}
+                                </p>
+
+                                {% if current_user.is_authenticated %}
+                                    <p>
+                                        <strong>Nota: </strong>
+                                    </p>
+                                    <p>
+                                        <input id="candscore" class="slider" max="5" min="1" name="candscore" type="range" value="1" />
+                                        <div class="sliderticks">
+                                            <label>1</label>
+                                            <label>2</label>
+                                            <label>3</label>
+                                            <label>4</label>
+                                            <label>5</label>
+                                        </div>
+                                    </p>
+                                {% endif %}
+                            </li>
+                        </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    {% if current_user.is_authenticated %}
+                        <button id="submit-rate" type="submit" class="btn btn-success">Avaliar</button>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#submit-rate').on('click', function(e){
+        e.preventDefault();
+        const url = 'rate_candidate/' + "{{ candidate.id }}";
+
+        $.ajax({
+            url,
+            type: 'POST',
+            data: $('#candidate-form').serialize(),
+            success: function(response){
+                if(response.status == 'ok'){
+                    $('#candidateModal').modal('hide');
+                }
+            }
+        });
+    });
+</script>

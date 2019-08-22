@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/rate_candidate.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/all_candidates.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="candidates-container fadeIn">
+    <ul>
+        {% for candidate in candidates %}
+            <li>
+                <div class="candidate-image">
+                    <a href="#" onclick="showModal('{{ candidate.id }}');">
+                        <img src="{{ url_for('static', filename='images/candidates/' + candidate.candname + '.png') }}" />
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div id="modal-candidate"></div>
+</div>
+
+<script>
+    function showModal(id){
+        const url = `rate_candidate/${id}`;
+        $.ajax({
+            url,
+            type: 'GET',
+            success: function(response){
+                $('#modal-candidate').html(response);
+                $('#candidateModal').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
+</script>
+
+{% endblock %}
+

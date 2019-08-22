@@ -1,19 +1,31 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/areas.css')}}">
+{% endblock %}
+
 {% block content %}
 
-<style>
-    .text-center{
-        text-align: center !important;
-    }
-    .center-image{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
+<div class="areas-container">
 
-<div class="container">
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <ul>
+            {% for field in form %}
+                {% if field.description != "" %}
+                    <li>
+                        <div class="area-image">
+                            <img src="{{ url_for('static', filename='images/areas/' + field.description) }}" />
+                        </div>
+                        <strong>{{ field.label }}</strong>
+                        {{ field(type="range", class="custom-range", min="1", max="5", value="1") }}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </form>
+    <!--
     <br />
     <div class="text-center">
         <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
@@ -31,7 +43,6 @@
                         <img src="{{ url_for('static', filename='cultura.png') }}" width="150" height="150" class="center-image"/>
                         <label>{{ form.cultura.label }}</label>
                         {{ form.cultura(type="range", class="custom-range", min="1", max="5", value="1") }}
-                        <!--<input type="range" class="custom-range" min="1" max="5" value="1" id="rangeCultura">-->
                     </div>
                     <div class="col-md-3">
                         <img src="{{ url_for('static', filename='economia.png') }}" width="150" height="150" class="center-image"/>
@@ -73,7 +84,7 @@
         </div>
 
     </form>
-
+    -->
 </div>
 
 {% endblock %}
