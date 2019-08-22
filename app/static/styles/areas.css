@@ -1,0 +1,36 @@
+.areas-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.areas-container ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 50px;
+    margin-top: 50px;
+}
+
+.areas-container ul li {
+    display: flex;
+    flex-direction: column;
+}
+
+.areas-container ul li .area-image {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.areas-container ul li .area-image img {
+    max-width: 100%;
+}
+
+.areas-container ul li strong {
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}

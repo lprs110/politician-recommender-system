@@ -1,14 +1,33 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css')}}">
+{% endblock %}
+
 {% block content %}
 
-<style>
-    .text-center{
-        text-align: center !important;
-    }
-</style>
-
-<div class="container">
+<div class="main-profile">
+    <div class="welcome">
+        <!-- <h2>Bem vindo <span>{{ current_user.full_name }}</span></h2> -->
+        <div class="profile-image">
+            <img src="{{ url_for('static', filename='images/logo_verde-2.png')}}" />
+        </div>
+    </div>
+    <!--
+    <div class="topDiv">
+        <h2>profile</h2>
+        <div class="circle">
+            <img src="{{ url_for('static', filename='images/logo_verde-2.png')}}" />
+        </div>
+    </div>
+    <div class="bottomDiv">
+        <h2><span>Hello</span><br>Your name is.</h2>
+    </div>
+    <div class="footer">
+        Footer
+    </div>-->
+    <!--
     <div class="text-center">
         <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
         <h4 style="padding: 5px;">Bem Vindo, {{ current_user.full_name}} (<strong>{{ current_user.username }}</strong>)</h4>
@@ -65,6 +84,7 @@
             </div>
         </div>
     </div>
+    -->
 </div>
 
 {% endblock %}

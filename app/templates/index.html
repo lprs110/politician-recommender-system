@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
-
-{% block stylesheet %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css')}}">
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block stylesheet %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/navbar.css')}}"
+/>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/index.css')}}"
+/>
+{% endblock %} {% block content %}
 <div class="fadeIn">
     <div class="main">
         <div class="container">
@@ -14,11 +16,13 @@
                 <div class="col-md-8 intro-text">
                     <h1>Vote consciente</h1>
                     <h4>Conheça seus candidatos e obtenha recomendações.</h4>
-                    <a routerLink="/signup"
-                        ><button class="btn btn-success">CRIE SUA CONTA AGORA</button></a
-                    >
+                    <a href="{{ url_for('register') }}">
+                        <button class="btn btn-success">
+                            CRIE SUA CONTA AGORA
+                        </button>
+                    </a>
                 </div>
-        </div>
+            </div>
         </div>
     </div>
 </div>
