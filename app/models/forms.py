@@ -50,6 +50,63 @@ class RegisterForm(FlaskForm):
 
 
 class RegisterAreasForm(FlaskForm):
+    cultura = IntegerField(
+        label="Cultura",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="cultura.png"
+    )
+    economia = IntegerField(
+        label="Economia",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="economia.png",
+    )
+    educacao = IntegerField(
+        label="Educação",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="educacao.png"
+    )
+    meio_ambiente = IntegerField(
+        label="Meio Ambiente",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="meio_ambiente.png"
+    )
+    saude = IntegerField(
+        label="Saúde",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="saude.png"
+    )
+    seguranca = IntegerField(
+        label="Segurança",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="seguranca.png"
+    )
+    tecnologia = IntegerField(
+        label="Tecnologia",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="tecnologia.png"
+    )
+    '''
     cultura = IntegerField(label="Cultura", validators=[DataRequired(), NumberRange(min=1, max=5)])
     economia = IntegerField(label="Economia", validators=[DataRequired(), NumberRange(min=1, max=5)])
     educacao = IntegerField(label="Educação", validators=[DataRequired(), NumberRange(min=1, max=5)])
@@ -57,9 +114,84 @@ class RegisterAreasForm(FlaskForm):
     saude = IntegerField(label="Saúde", validators=[DataRequired(), NumberRange(min=1, max=5)])
     seguranca = IntegerField(label="Segurança", validators=[DataRequired(), NumberRange(min=1, max=5)])
     tecnologia = IntegerField(label="Tecnologia", validators=[DataRequired(), NumberRange(min=1, max=5)])
+    '''
 
+class RateCandidateForm(FlaskForm):
+    candscore = IntegerField(
+        label="Candidato",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ]
+    )
 
 class RateCandidatesForm(FlaskForm):
+    alckmin = IntegerField(
+        label="Geraldo Alckmin",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="alckmin.png"
+    )
+    amoedo = IntegerField(
+        label="João Amoêdo",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="amoedo.png"
+    )
+    bolsonaro = IntegerField(
+        label="Jair Bolsonaro",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="bolsonaro.png"
+    )
+    ciro = IntegerField(
+        label="Ciro Gomes",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="ciro.png"
+    )
+    daciolo = IntegerField(
+        label="Cabo Daciolo",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="daciolo.png"
+    )
+    boulos = IntegerField(
+        label="Guilherme Boulos",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="boulos.png"
+    )
+    haddad = IntegerField(
+        label="Fernando Haddad",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="haddad.png"
+    )
+    marina = IntegerField(
+        label="Marina Silva",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=5)
+        ],
+        description="marina.png"
+    )
+
+    '''
     alckmin = IntegerField(label="Geraldo Alckmin", validators=[DataRequired(), NumberRange(min=1, max=5)])
     amoedo = IntegerField(label="João Amoêdo", validators=[DataRequired(), NumberRange(min=1, max=5)])
     bolsonaro = IntegerField(label="Jair Bolsonaro", validators=[DataRequired(), NumberRange(min=1, max=5)])
@@ -68,3 +200,4 @@ class RateCandidatesForm(FlaskForm):
     boulos = IntegerField(label="Guilherme Boulos", validators=[DataRequired(), NumberRange(min=1, max=5)])
     haddad = IntegerField(label="Fernando Haddad", validators=[DataRequired(), NumberRange(min=1, max=5)])
     marina = IntegerField(label="Marina Silva", validators=[DataRequired(), NumberRange(min=1, max=5)])
+    '''
