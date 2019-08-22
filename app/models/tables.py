@@ -62,6 +62,10 @@ class Candidate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     candname = db.Column(db.String, nullable=False)
     label = db.Column(db.String, nullable=False)
+    age = db.Column(db.Integer)
+    political_party = db.Column(db.String) # partido político
+    number = db.Column(db.Integer) # número de candidatura
+    description = db.Column(db.String(255)) # descrição
 
     users_rating = db.relationship("User", secondary="user_candidates")
 
