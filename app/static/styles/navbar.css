@@ -1,32 +1,32 @@
-li, a, button {
+header li, a, button {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
     color: #edf0f1;
     text-decoration: none;
-  }
-  
-  ul {
-    margin-bottom: 0px;
-  }
-  
-  a {
-    cursor: pointer;
-  }
+}
 
-  a:hover{
+header ul {
+    margin-bottom: 0px;
+}
+
+header a {
+    cursor: pointer;
+}
+
+header a:hover{
     text-decoration: none;
-  }
-  
-  header {
+}
+
+header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 20px 10%;
     background-color: #24252A;
-  }
-  
-  .logo {
+}
+
+header .logo {
     font-family: "Rubik", sans-serif;
     font-weight: 700;
     font-size: 20px;
@@ -34,34 +34,34 @@ li, a, button {
     margin-right: auto;
     text-decoration: none;
     color: #edf0f1;
-  }
+}
 
-  .logo:hover{
+header .logo:hover{
     color: #edf0f1;
-  }
-  
-  .logo-mid {
+}
+
+header .logo-mid {
     color: #00cc00;
-  }
-  
-  .logo-end {
+}
+
+header .logo-end {
     font-size: 10px;
-  }
-  
-  .nav-links {
+}
+
+header .nav-links {
     list-style: none;
-  }
-  
-  .nav-links li {
+}
+
+header .nav-links li {
     display: inline-block;
     padding: 0px 20px;
-  }
-  
-  .nav-links li a:hover {
+}
+
+header .nav-links li a:hover {
     color: #00cc00;
-  }
-  
-  .contact {
+}
+
+header .contact {
     margin-left: 20px;
     padding: 9px 25px;
     background-color: rgba(0, 204, 0, 1);
@@ -69,26 +69,25 @@ li, a, button {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3 ease 0s;
-  }
-  
-  .contact:hover {
+}
+
+header .contact:hover {
     background-color: rgba(0, 204, 0, 0.8);
-  }
+}
 
-  .profile {
+header .profile {
     margin-left: 15px;
-  }
+}
 
-  .profile img {
+header .profile img {
     width: 45px;
     height: 45px;
     border: none;
     background-color: none;
     border-radius: 50%;
     border: 2px solid #fff;
-    /*box-shadow: 0 0 5px #fff;*/
-  }
+}
 
-  .profile img:hover{
+header .profile img:hover{
     box-shadow: 0 0 5px #fff;
-  }
+}
