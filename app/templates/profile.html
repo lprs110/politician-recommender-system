@@ -1,90 +1,70 @@
-{% extends 'base.html' %}
-
-{% block stylesheet %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css')}}">
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block stylesheet %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/navbar.css')}}"
+/>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/profile.css')}}"
+/>
+{% endblock %} {% block content %}
 
 <div class="main-profile">
     <div class="welcome">
         <!-- <h2>Bem vindo <span>{{ current_user.full_name }}</span></h2> -->
         <div class="profile-image">
-            <img src="{{ url_for('static', filename='images/logo_verde-2.png')}}" />
+            <img
+                src="{{ url_for('static', filename='images/logo_verde-2.png')}}"
+            />
         </div>
     </div>
-    <!--
-    <div class="topDiv">
-        <h2>profile</h2>
-        <div class="circle">
-            <img src="{{ url_for('static', filename='images/logo_verde-2.png')}}" />
-        </div>
-    </div>
-    <div class="bottomDiv">
-        <h2><span>Hello</span><br>Your name is.</h2>
-    </div>
-    <div class="footer">
-        Footer
-    </div>-->
-    <!--
-    <div class="text-center">
-        <img src="{{ url_for('static', filename='f_verde.png')}}" width="140" height="120"/>
-        <h4 style="padding: 5px;">Bem Vindo, {{ current_user.full_name}} (<strong>{{ current_user.username }}</strong>)</h4>
 
-        {% if current_user.areas_ratings and current_user.candidates_rating: %}
-            <a class="btn btn-lg btn-info" href="{{ url_for('recommendation') }}" role="button">Solicitar Recomendação</a>
-        {% endif %}
-    </div>
-    <br />
-
-    <div class="card" style="width: 100%;">
-
-        <div class="card" style="width: 100%;">
-            <div class="card-header text-center">
-                <h3>Temas</h3>
+    <div class="main-tabs">
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="user-list">
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            href="#user_profile"
+                            role="tab"
+                            >Perfil</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#user_areas" role="tab"
+                            >Áreas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#user_candidates" role="tab"
+                            >Candidatos</a
+                        >
+                    </li>
+                </ul>
             </div>
             <div class="card-body">
-                {% if not current_user.areas_ratings: %}
-                    <a class="btn btn-block btn-info" href="{{ url_for('register_areas') }}" role="button">Nenhum tema avaliado. Avalie agora!</a>
-                {% else %}
-                    <div class="row">
-                        {% for user_area in current_user.areas_ratings %}
-                            <div class="col-md-12 text-center">
-                                <strong><span style="display:block;">{{ user_area.area.label }}</span></strong>
-                                {{ user_area.rate }}
-                            </div>
-                        {% endfor %}
-                        <a class="btn btn-block btn-success" href="#" role="button">Clique aqui para alterar sua avaliação!</a>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="user_profile">
+                        {% include 'profile_info.html' %}
                     </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="card" style="width: 100%;">
-            <div class="card-header text-center">
-                <h3>Candidatos</h3>
-            </div>
-            <div class="card-body">
-                {% if not current_user.candidates_rating %}
-                    <a class="btn btn-block btn-info" href="{{ url_for('rate_candidates') }}" role="button">Nenhum candidato avaliado. Avalie agora!</a>
-                {% else %}
-                    <div class="row">
-                        {% for user_cand in current_user.candidates_ratings %}
-                            <div class="col-md-12 text-center">
-                                <strong><span style="display:block;">{{ user_cand.candidate.label }}</span></strong>
-                                {{ user_cand.rate }}
-                            </div>
-                        {% endfor %}
-                        <a class="btn btn-block btn-success" href="#" role="button">Clique aqui para alterar sua avaliação!</a>
+                    <div class="tab-pane" id="user_areas">
+                        {% include 'profile_areas.html' %}
                     </div>
-                {% endif %}
+                    <div class="tab-pane" id="user_candidates">
+                        {% include 'profile_candidates.html' %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    -->
 </div>
+
+<script>
+    $("#user-list a").on("click", function(e) {
+        e.preventDefault();
+        $(this).tab("show");
+    });
+</script>
 
 {% endblock %}

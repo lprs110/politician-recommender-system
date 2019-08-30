@@ -1,0 +1,20 @@
+<div class="main-candidates-grid">
+    <ul>
+        {% for user_candidate in current_user.candidates_ratings %}
+        <li>
+            <div class="card">
+                <img
+                    class="card-image-top"
+                    src="{{ url_for('static', filename='images/candidates/' + user_candidate.candidate.candname + '.png') }}"
+                    alt="{{ user_candidate.candidate.label }}"
+                />
+
+                <div class="card-body">
+                    <strong>{{ user_candidate.candidate.label }}</strong>
+                    <p>{{ user_candidate.rate }}</p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

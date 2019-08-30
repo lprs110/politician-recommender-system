@@ -1,0 +1,19 @@
+<div class="main-areas-grid">
+    <ul>
+        {% for user_area in current_user.areas_ratings %}
+        <li>
+            <div class="card">
+                <img
+                    class="card-image-top"
+                    src="{{ url_for('static', filename='images/areas/' + user_area.area.area_name + '.png') }}"
+                    alt="{{ user_area.area.label }}"
+                />
+                <div class="card-body">
+                    <strong>{{ user_area.area.label }}</strong>
+                    <p>{{ user_area.rate }}</p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
