@@ -96,10 +96,10 @@ def register_areas():
 
         flash("Temas avaliados com sucesso.", 'success')
 
-        if not user.candidates_rating:
-            return redirect(url_for('rate_candidates'))
-        else:
-            return redirect(url_for('profile'))
+        # if not user.candidates_rating:
+        #    return redirect(url_for('rate_candidates'))
+        # else:
+        #    return redirect(url_for('profile'))
 
     return render_template('register_areas.html', form=form)
 
@@ -165,10 +165,10 @@ def rate_candidate(cand_id):
     return render_template('rate_candidate.html', form=form, candidate=candidate)
 
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET', 'POST'])
 def profile():
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
+    # if not current_user.is_authenticated:
+    #    return redirect(url_for('login'))
 
     return render_template('profile.html')
 
