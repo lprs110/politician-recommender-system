@@ -1,29 +1,34 @@
-{% extends 'base.html' %}
-
-{% block stylesheet %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/areas.css')}}">
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block stylesheet %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/navbar.css')}}"
+/>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/areas.css')}}"
+/>
+{% endblock %} {% block content %}
 
 <div class="areas-container">
-
     <form action="" method="POST">
         {{ form.csrf_token }}
         <ul>
-            {% for field in form %}
-                {% if field.description != "" %}
-                    <li>
-                        <div class="area-image">
-                            <img src="{{ url_for('static', filename='images/areas/' + field.description) }}" />
-                        </div>
-                        <strong>{{ field.label }}</strong>
-                        {{ field(type="range", class="custom-range", min="1", max="5", value="1") }}
-                    </li>
-                {% endif %}
-            {% endfor %}
+            {% for field in form %} {% if field.description != "" %}
+            <li>
+                <div class="area-image">
+                    <img
+                        src="{{ url_for('static', filename='images/areas/' + field.description) }}"
+                    />
+                </div>
+                <strong>{{ field.label }}</strong>
+                {{ field(type="range", class="custom-range", min="1", max="5", value="1") }}
+            </li>
+            {% endif %} {% endfor %}
         </ul>
+
+        <div class="submit-button">
+            <button class="btn btn-success" type="submit">Avaliar Temas</button>
+        </div>
     </form>
     <!--
     <br />
